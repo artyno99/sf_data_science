@@ -1,22 +1,31 @@
 import numpy as np
 
 def random_predict(number:int=1) -> int:
-    """Рандомно угадываем число
-
+    """Сначала устанавливаем любое random число, потом делим диапазон на 2
+    и находим середину, которую используем для следующей попытки. И так сужаем
+    область поиска пока не достигнем результата.
+     
     Args:
-        number (int, optional): _description_. Defaults to 1.
+        number (int, optional): Загаданное число. Defaults to 1.
 
     Returns:
-        int: _description_
+        int: Число попыток
     """
     
     count = 0
+    low = 1
+    high = 100
     
     while True:
         count += 1
-        predict_number = np.random.randint(1, 101) #предполагаемое число
-        if number == predict_number:
+        predict = (low+high) // 2
+        
+        if predict == number:
             break
+        elif number > predict:
+            low = predict + 1
+        else:
+            high = predict - 1
     return(count)
 print(f'Количество попыток: {random_predict()}')
 
